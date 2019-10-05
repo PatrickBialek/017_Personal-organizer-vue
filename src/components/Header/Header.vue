@@ -1,12 +1,10 @@
 <template>
-  <div>
-    <h1>This is a home page</h1>
-  </div>
+  <v-toolbar></v-toolbar>
 </template>
 
 <script>
 export default {
-  name: "Home",
+  name: "Header",
   data() {
     return {};
   }
