@@ -3,7 +3,7 @@
     <v-card-text class="white--text">
       <p class="text-center ma-0">
         {{ new Date().getFullYear() }} -
-        <strong>Personal Organizer</strong>
+        <strong>{{ appName }}</strong>
       </p>
     </v-card-text>
   </v-footer>
@@ -13,7 +13,9 @@
 export default {
   name: "Footer",
   data() {
-    return {};
+    return {
+      appName: "Personal Organizer"
+    };
   }
 };
 </script>
