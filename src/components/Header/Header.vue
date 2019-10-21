@@ -1,5 +1,5 @@
 <template>
-  <v-toolbar app max-height="60">
+  <v-toolbar max-height="60">
     <v-toolbar-title>
       <h1 class="grey--text text--lighten-1 title">Personal Organizer</h1>
     </v-toolbar-title>
