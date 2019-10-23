@@ -7,6 +7,7 @@ import vuetify from "./plugins/vuetify";
 import firebase from "firebase";
 
 Vue.config.productionTip = false;
+let app = null;
 
 firebase.auth().onAuthStateChanged(() => {
   // init app if not already created
