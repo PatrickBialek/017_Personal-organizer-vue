@@ -1,7 +1,5 @@
 import Vue from "vue";
 import Router from "vue-router";
-import firebase from "firebase";
-
 import Home from "./views/Home.vue";
 import SignIn from "./views/SignIn.vue";
 import SignUp from "./views/SignUp.vue";
@@ -12,14 +10,10 @@ Vue.use(Router);
 
 const router = new Router({
   mode: "history",
-  base: process.env.BASE_URL,
   routes: [{
       path: "/",
       name: "home",
-      component: Home,
-      meta: {
-        requiresAuth: true
-      }
+      component: Home
     },
     {
       path: "/sign-in",
@@ -34,10 +28,7 @@ const router = new Router({
     {
       path: "/notes",
       name: "Notes",
-      component: Notes,
-      meta: {
-        requiresAuth: true
-      }
+      component: Notes
     },
     {
       path: "*",
@@ -45,22 +36,6 @@ const router = new Router({
       component: Error404
     }
   ]
-});
-
-router.beforeEach((to, from, next) => {
-  if (to.matched.some(res => res.meta.requiresAuth)) {
-    const user = firebase.auth().currentUser;
-
-    if (user) {
-      next();
-    } else {
-      next({
-        name: SignIn
-      })
-    }
-  } else {
-    next();
-  }
 })
 
 export default router;
