@@ -1,17 +1,6 @@
 import firebase from "firebase";
 import firestore from "firebase/firestore";
 
-/*const firebaseConfig = {
-	apiKey: "AIzaSyCQutkAOwqPtXQrkipJxrA52cd7OQXAfgM",
-	authDomain: "vue-personal-organizer.firebaseapp.com",
-	databaseURL: "https://vue-personal-organizer.firebaseio.com",
-	projectId: "vue-personal-organizer",
-	storageBucket: "vue-personal-organizer.appspot.com",
-	messagingSenderId: "93677670654",
-	appId: "1:93677670654:web:30880d31c14fbfb79c15af",
-	measurementId: "G-3L6WEK86GX"
-};*/
-
 const firebaseConfig = {
 	apiKey: "AIzaSyBPuJCabJPvUh4C9E1sTxpQDjE8QfZPp28",
 	authDomain: "personal-organizer-vue.firebaseapp.com",
