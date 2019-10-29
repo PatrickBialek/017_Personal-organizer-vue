@@ -16,7 +16,7 @@
         <v-form class="pa-4">
           <v-text-field label="Email:" v-model="user.email"></v-text-field>
           <v-text-field label="Passowrd" :type="'password'" v-model="user.password"></v-text-field>
-          <v-btn flat class="primary">Sign In</v-btn>
+          <v-btn class="primary">Sign In</v-btn>
         </v-form>
         <v-row class="mx-4 mb-4">
           <router-link class="link" to="/sign-up">I don't have an account yet.</router-link>

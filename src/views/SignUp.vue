@@ -15,10 +15,16 @@
         </v-card-title>
         <v-form class="pa-4">
           <v-text-field label="Email:" v-model="user.email"></v-text-field>
-          <v-text-field label="Name" v-model="user.name"></v-text-field>
+          <v-text-field
+            label="Name"
+            v-model="user.name"
+            required
+            :error-messages="nameError"
+            @input="$v.name.$touch().$blur()"
+          ></v-text-field>
           <v-text-field label="Password" :type="'password'" v-model="user.password"></v-text-field>
           <v-text-field label="Repeat Password" :type="'password'" v-model="user.passwordRepeated"></v-text-field>
-          <v-btn flat class="primary">Sign Up</v-btn>
+          <v-btn class="primary">Sign Up</v-btn>
         </v-form>
         <v-row class="mx-4 mb-4">
           <router-link class="link" to="/sign-in">I have and account.</router-link>
@@ -29,6 +35,8 @@
 </template>
 
 <script>
+import { required, email } from "vuelidate/lib/validators";
+
 export default {
   name: "SignUp",
   data() {
@@ -40,6 +48,20 @@ export default {
         passwordRepeated: ""
       }
     };
+  },
+  computed: {
+    nameError() {
+      const errors = [];
+      if (!this.$v.name.$dirty) return errors;
+      !this.$v.name.required && errors.push("Name is required.");
+      return errors;
+    }
+  },
+  validations: {
+    email: {},
+    name: {
+      required
+    }
   }
 };
 </script>
