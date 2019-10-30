@@ -14,7 +14,12 @@
           <h2 class="title text--grey text--darken-2">Sing Up</h2>
         </v-card-title>
         <v-form class="pa-4">
-          <v-text-field label="Email:" v-model="user.email"></v-text-field>
+          <v-text-field
+            label="Email:"
+            v-model="user.email"
+            :class="{ 'is-invalid': $v.user.name.$error }"
+          ></v-text-field>
+          <p v-if=" $v.user.name.$error" class="invalid-feedback">Last Name is required</p>
           <v-text-field label="Name" v-model="user.name"></v-text-field>
           <v-text-field label="Password" :type="'password'" v-model="user.password"></v-text-field>
           <v-text-field label="Repeat Password" :type="'password'" v-model="user.passwordRepeated"></v-text-field>
@@ -29,7 +34,13 @@
 </template>
 
 <script>
-import { required, email } from "vuelidate/lib/validators";
+import {
+  required,
+  password,
+  email,
+  minLength,
+  sameAs
+} from "vuelidate/lib/validators";
 
 export default {
   name: "SignUp",
@@ -43,13 +54,12 @@ export default {
       }
     };
   },
-  computed: {},
   validations: {
-    email: {
-      required
-    },
-    name: {
-      required
+    user: {
+      email: { required, email },
+      name: { required },
+      password: { required, minLength: minLength(6) },
+      passwordRepeated: { required, sameAsPassowrd: sameAs(password) }
     }
   }
 };
