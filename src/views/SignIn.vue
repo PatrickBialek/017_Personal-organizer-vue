@@ -18,8 +18,11 @@
           <v-text-field label="Passowrd" :type="'password'" v-model="user.password"></v-text-field>
           <v-btn class="primary">Sign In</v-btn>
         </v-form>
-        <v-row class="mx-4 mb-4">
+        <v-row class="mx-4 mb-1">
           <router-link class="link" to="/sign-up">I don't have an account yet.</router-link>
+        </v-row>
+        <v-row class="mx-4 mb-4">
+          <router-link class="link" to="/reset-passowrd">I don't remember my password.</router-link>
         </v-row>
       </v-card>
     </v-layout>

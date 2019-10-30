@@ -3,6 +3,7 @@ import Router from "vue-router";
 import Home from "./views/Home.vue";
 import SignIn from "./views/SignIn.vue";
 import SignUp from "./views/SignUp.vue";
+import Reset from "./views/Reset.vue";
 import Error404 from "./views/Error404.vue";
 import Notes from "./views/Notes/index.vue";
 
@@ -24,6 +25,11 @@ const router = new Router({
       path: "/sign-up",
       name: "SignUp",
       component: SignUp
+    },
+    {
+      path: "/reset-passowrd",
+      name: "Reset",
+      component: Reset
     },
     {
       path: "/notes",

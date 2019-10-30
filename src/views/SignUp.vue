@@ -14,22 +14,8 @@
           <h2 class="title text--grey text--darken-2">Sing Up</h2>
         </v-card-title>
         <v-form class="pa-4">
-          <v-text-field
-            label="Email:"
-            v-model="user.email"
-            required
-            :error-messages="emailHandler"
-            @input="$v.email.$touch()"
-            @blur="$v.email.$touch()"
-          ></v-text-field>
-          <v-text-field
-            label="Name"
-            v-model="user.name"
-            required
-            :error-messages="nameHandler"
-            @input="$v.name.$touch()"
-            @blur="$v.name.$touch()"
-          ></v-text-field>
+          <v-text-field label="Email:" v-model="user.email"></v-text-field>
+          <v-text-field label="Name" v-model="user.name"></v-text-field>
           <v-text-field label="Password" :type="'password'" v-model="user.password"></v-text-field>
           <v-text-field label="Repeat Password" :type="'password'" v-model="user.passwordRepeated"></v-text-field>
           <v-btn class="primary">Sign Up</v-btn>
@@ -57,20 +43,7 @@ export default {
       }
     };
   },
-  computed: {
-    nameHandler() {
-      const errors = [];
-      if (!this.$v.name.$dirty) return errors;
-      !this.$v.name.required && errors.push("Name is required.");
-      return errors;
-    },
-    emailHandler() {
-      const errors = [];
-      if (!this.$v.email.$dirty) return errors;
-      !this.$v.email.required && errors.push("Email is required.");
-      return errors;
-    }
-  },
+  computed: {},
   validations: {
     email: {
       required
