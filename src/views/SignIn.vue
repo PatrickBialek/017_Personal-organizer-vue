@@ -14,8 +14,13 @@
           <h2 class="title text--grey text--darken-2" min-width="300">Sing In</h2>
         </v-card-title>
         <v-form class="pa-4">
-          <v-text-field label="Email:" v-model="user.email"></v-text-field>
-          <v-text-field label="Passowrd" :type="'password'" v-model="user.password"></v-text-field>
+          <v-text-field label="Email:" v-model="user.email" :rules="validationRules.email"></v-text-field>
+          <v-text-field
+            label="Passowrd"
+            :type="'password'"
+            v-model="user.password"
+            :rules="validationRules.password"
+          ></v-text-field>
           <v-btn class="primary">Sign In</v-btn>
         </v-form>
         <v-row class="mx-4 mb-1">
@@ -37,6 +42,18 @@ export default {
       user: {
         email: "",
         password: ""
+      },
+      validationRules: {
+        email: [
+          v => !!v || "Email is required",
+          v => /.+@.+\..+/.test(v) || "E-mail must be valid"
+        ],
+        password: [
+          v => !!v || "Password is required",
+          v =>
+            (v && v.length >= 8) ||
+            "Password must contains at least 8 characters"
+        ]
       }
     };
   }
