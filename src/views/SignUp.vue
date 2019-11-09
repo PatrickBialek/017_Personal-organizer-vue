@@ -14,15 +14,22 @@
           <h2 class="title text--grey text--darken-2">Sing Up</h2>
         </v-card-title>
         <v-form class="pa-4">
+          <v-text-field label="Email:" v-model="user.email" :rules="validationRules.email" required></v-text-field>
+          <v-text-field label="Name" v-model="user.name" :rules="validationRules.name" required></v-text-field>
           <v-text-field
-            label="Email:"
-            v-model="user.email"
-            :class="{ 'is-invalid': $v.user.name.$error }"
+            label="Password"
+            :type="'password'"
+            v-model="user.password"
+            :rules="validationRules.password"
+            required
           ></v-text-field>
-          <p v-if=" $v.user.name.$error" class="invalid-feedback">Last Name is required</p>
-          <v-text-field label="Name" v-model="user.name"></v-text-field>
-          <v-text-field label="Password" :type="'password'" v-model="user.password"></v-text-field>
-          <v-text-field label="Repeat Password" :type="'password'" v-model="user.passwordRepeated"></v-text-field>
+          <v-text-field
+            label="Repeat Password"
+            :type="'password'"
+            v-model="user.passwordRepeated"
+            :rules="validationRules.passwordRepeated"
+            required
+          ></v-text-field>
           <v-btn class="primary">Sign Up</v-btn>
         </v-form>
         <v-row class="mx-4 mb-4">
@@ -34,13 +41,8 @@
 </template>
 
 <script>
-import {
-  required,
-  password,
-  email,
-  minLength,
-  sameAs
-} from "vuelidate/lib/validators";
+import { validationMixin } from "vuelidate";
+import { required, password, email, minLength } from "vuelidate/lib/validators";
 
 export default {
   name: "SignUp",
@@ -51,16 +53,29 @@ export default {
         name: "",
         password: "",
         passwordRepeated: ""
+      },
+      validationRules: {
+        name: [v => !!v || "Name is required"],
+        email: [
+          v => !!v || "Email is required",
+          v => /.+@.+\..+/.test(v) || "E-mail must be valid"
+        ],
+        password: [
+          v => !!v || "Password is required",
+          v =>
+            (v && v.length >= 8) ||
+            "Password must contains at least 8 characters"
+        ],
+        passwordRepeated: [
+          v => !!v || "You have to repeat a password",
+          v =>
+            (v && v.length >= 8) ||
+            "Password must contains at least 8 characters",
+          v =>
+            (v && v == this.user.password) || "Passwords have to be this same"
+        ]
       }
     };
-  },
-  validations: {
-    user: {
-      email: { required, email },
-      name: { required },
-      password: { required, minLength: minLength(6) },
-      passwordRepeated: { required, sameAsPassowrd: sameAs(password) }
-    }
   }
 };
 </script>
