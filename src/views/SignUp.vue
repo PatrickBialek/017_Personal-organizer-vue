@@ -41,9 +41,6 @@
 </template>
 
 <script>
-import { validationMixin } from "vuelidate";
-import { required, password, email, minLength } from "vuelidate/lib/validators";
-
 export default {
   name: "SignUp",
   data() {
