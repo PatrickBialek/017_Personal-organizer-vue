@@ -13,27 +13,14 @@
         <v-card-title>
           <h2 class="title text--grey text--darken-2">Sing Up</h2>
         </v-card-title>
-        <v-form class="pa-4">
-          <v-text-field
-            label="Email:"
-            v-model="user.email"
-            :rules="validationRules.email"
-            :lazy-validation="lazy"
-            required
-          ></v-text-field>
-          <v-text-field
-            label="Name"
-            v-model="user.name"
-            :rules="validationRules.name"
-            :lazy-validation="lazy"
-            required
-          ></v-text-field>
+        <v-form class="pa-4" v-model="valid" :lazy-validation="lazy">
+          <v-text-field label="Email:" v-model="user.email" :rules="validationRules.email" required></v-text-field>
+          <v-text-field label="Name" v-model="user.name" :rules="validationRules.name" required></v-text-field>
           <v-text-field
             label="Password"
             :type="'password'"
             v-model="user.password"
             :rules="validationRules.password"
-            :lazy-validation="lazy"
             required
           ></v-text-field>
           <v-text-field
@@ -42,10 +29,9 @@
             :type="'password'"
             v-model="user.passwordRepeated"
             :rules="validationRules.passwordRepeated"
-            :lazy-validation="lazy"
             required
           ></v-text-field>
-          <v-btn class="primary">Sign Up</v-btn>
+          <v-btn class="primary" @click="validate" :disabled="!valid">Sign Up</v-btn>
         </v-form>
         <v-row class="mx-4 mb-4">
           <router-link class="link" to="/sign-in">I have and account.</router-link>
@@ -66,6 +52,7 @@ export default {
         password: "",
         passwordRepeated: ""
       },
+      valid: false,
       validationRules: {
         name: [v => !!v || "Name is required"],
         email: [
