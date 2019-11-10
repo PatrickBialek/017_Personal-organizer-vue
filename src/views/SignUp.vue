@@ -32,6 +32,7 @@
             required
           ></v-text-field>
           <v-btn class="primary" @click="signInHandler" :disabled="!valid">Sign Up</v-btn>
+          <p class="error-message mb-0 mt-4 red--text" v-if="error">{{ error }}</p>
         </v-form>
         <v-row class="mx-4 mb-4">
           <router-link class="link" to="/sign-in">I have and account.</router-link>
@@ -42,6 +43,9 @@
 </template>
 
 <script>
+import db from "@/firebase/init";
+import firebase from "firebase";
+
 export default {
   name: "SignUp",
   data() {
@@ -52,7 +56,9 @@ export default {
         password: "",
         passwordRepeated: ""
       },
+      error: "",
       valid: false,
+      loading: false,
       validationRules: {
         name: [v => !!v || "Name is required"],
         email: [
@@ -84,6 +90,12 @@ export default {
   },
   methods: {
     signInHandler() {
+      firebase
+        .auth()
+        .createUserWithEmailAndPassword(this.user.email, this.user.password)
+        .catch(err => {
+          this.error = err;
+        });
       this.reset();
     },
     reset() {
@@ -96,5 +108,8 @@ export default {
 <style scoped lang="scss">
 .link {
   text-decoration: none;
+}
+.error-message {
+  max-width: 250px;
 }
 </style>
