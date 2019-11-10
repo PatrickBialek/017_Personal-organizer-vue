@@ -11,7 +11,8 @@ Vue.use(Router);
 
 const router = new Router({
   mode: "history",
-  routes: [{
+  routes: [
+    {
       path: "/",
       name: "home",
       component: Home
@@ -42,6 +43,6 @@ const router = new Router({
       component: Error404
     }
   ]
-})
+});
 
 export default router;

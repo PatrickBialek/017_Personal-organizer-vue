@@ -6,7 +6,12 @@
           <h2 class="title grey--text text--darken-2">Resset Password</h2>
         </v-card-title>
         <v-form class="pa-4">
-          <v-text-field label="Email: " v-model="user.email" :rules="validationRules.email"></v-text-field>
+          <v-text-field
+            class="mb-4"
+            label="Email: "
+            v-model="user.email"
+            :rules="validationRules.email"
+          ></v-text-field>
           <v-btn class="primary">Send reset mail</v-btn>
         </v-form>
       </v-card>

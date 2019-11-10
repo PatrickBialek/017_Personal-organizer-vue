@@ -16,6 +16,7 @@
         <v-form class="pa-4">
           <v-text-field label="Email:" v-model="user.email" :rules="validationRules.email"></v-text-field>
           <v-text-field
+            class="mb-4"
             label="Passowrd"
             :type="'password'"
             v-model="user.password"

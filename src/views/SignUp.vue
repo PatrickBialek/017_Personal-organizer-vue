@@ -14,20 +14,35 @@
           <h2 class="title text--grey text--darken-2">Sing Up</h2>
         </v-card-title>
         <v-form class="pa-4">
-          <v-text-field label="Email:" v-model="user.email" :rules="validationRules.email" required></v-text-field>
-          <v-text-field label="Name" v-model="user.name" :rules="validationRules.name" required></v-text-field>
+          <v-text-field
+            label="Email:"
+            v-model="user.email"
+            :rules="validationRules.email"
+            :lazy-validation="lazy"
+            required
+          ></v-text-field>
+          <v-text-field
+            label="Name"
+            v-model="user.name"
+            :rules="validationRules.name"
+            :lazy-validation="lazy"
+            required
+          ></v-text-field>
           <v-text-field
             label="Password"
             :type="'password'"
             v-model="user.password"
             :rules="validationRules.password"
+            :lazy-validation="lazy"
             required
           ></v-text-field>
           <v-text-field
+            class="mb-4"
             label="Repeat Password"
             :type="'password'"
             v-model="user.passwordRepeated"
             :rules="validationRules.passwordRepeated"
+            :lazy-validation="lazy"
             required
           ></v-text-field>
           <v-btn class="primary">Sign Up</v-btn>
@@ -61,7 +76,10 @@ export default {
           v => !!v || "Password is required",
           v =>
             (v && v.length >= 8) ||
-            "Password must contains at least 8 characters"
+            "Password must contains at least 8 characters",
+          v =>
+            /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/.test(v) ||
+            "One letter, one number, one special sign"
         ],
         passwordRepeated: [
           v => !!v || "You have to repeat a password",
@@ -69,7 +87,10 @@ export default {
             (v && v.length >= 8) ||
             "Password must contains at least 8 characters",
           v =>
-            (v && v == this.user.password) || "Passwords have to be this same"
+            (v && v == this.user.password) || "Passwords have to be this same",
+          v =>
+            /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/.test(v) ||
+            "One small letter, one number, one big letter"
         ]
       }
     };

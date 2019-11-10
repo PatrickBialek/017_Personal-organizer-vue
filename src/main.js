@@ -4,7 +4,7 @@ import router from "./router";
 import store from "./store";
 import "./registerServiceWorker";
 import vuetify from "./plugins/vuetify";
-import Vuelidate from 'vuelidate'
+import Vuelidate from "vuelidate";
 
 Vue.config.productionTip = false;
 
