@@ -5,19 +5,20 @@
         <v-card-title>
           <h2 class="title grey--text text--darken-2">Resset Password</h2>
         </v-card-title>
-        <v-form class="pa-4" v-model="valid" :lazy-validation="lazy">
+        <v-form class="pa-4" v-model="valid" ref="form">
           <v-text-field
             class="mb-4"
             label="Email: "
             v-model="user.email"
             :rules="validationRules.email"
           ></v-text-field>
-          <v-btn class="primary" :disabled="!valid">Send reset mail</v-btn>
+          <v-btn class="primary" @click="resetPasswordHandler" :disabled="!valid">Send reset mail</v-btn>
         </v-form>
       </v-card>
     </v-layout>
   </v-container>
 </template>
+
 
 <script>
 export default {
@@ -35,6 +36,14 @@ export default {
         ]
       }
     };
+  },
+  methods: {
+    resetPasswordHandler() {
+      this.reset();
+    },
+    reset() {
+      this.$refs.form.reset();
+    }
   }
 };
 </script>

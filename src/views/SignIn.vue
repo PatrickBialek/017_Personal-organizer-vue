@@ -13,7 +13,7 @@
         <v-card-title>
           <h2 class="title text--grey text--darken-2" min-width="300">Sing In</h2>
         </v-card-title>
-        <v-form class="pa-4" v-model="valid" :lazy-validation="lazy">
+        <v-form class="pa-4" v-model="valid" ref="form">
           <v-text-field label="Email:" v-model="user.email" :rules="validationRules.email"></v-text-field>
           <v-text-field
             class="mb-4"
@@ -22,7 +22,7 @@
             v-model="user.password"
             :rules="validationRules.password"
           ></v-text-field>
-          <v-btn class="primary" :disabled="!valid">Sign In</v-btn>
+          <v-btn class="primary" @click="signInHanlder" :disabled="!valid">Sign In</v-btn>
         </v-form>
         <v-row class="mx-4 mb-1">
           <router-link class="link" to="/sign-up">I don't have an account yet.</router-link>
@@ -58,6 +58,14 @@ export default {
         ]
       }
     };
+  },
+  methods: {
+    signInHanlder() {
+      this.reset();
+    },
+    reset() {
+      this.$refs.form.reset();
+    }
   }
 };
 </script>
