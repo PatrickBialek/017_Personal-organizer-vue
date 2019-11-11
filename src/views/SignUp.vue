@@ -3,7 +3,11 @@
     <v-layout row wrap align-center class="justify-center">
       <v-card class="ma-3" min-width="300">
         <v-row class="ma-4">
-          <v-btn class="red darken-2 white--text mb-4" width="100%">Continue with google</v-btn>
+          <v-btn
+            class="red darken-2 white--text mb-4"
+            @click="continueWithGoogle"
+            width="100%"
+          >Continue with google</v-btn>
         </v-row>
         <v-row class="mx-4 mt-4 justify-center align-center">
           <v-divider></v-divider>
@@ -100,15 +104,13 @@ export default {
       firebase
         .auth()
         .createUserWithEmailAndPassword(this.user.email, this.user.password)
-        .then(cred => {
+        .then(res => {
           ref.set({
             name: this.user.name
           });
         })
         .then(() => {
           this.loading = false;
-        })
-        .then(() => {
           this.$refs.form.reset();
           this.error = "";
         })
@@ -120,6 +122,23 @@ export default {
     },
     reset() {
       this.$refs.form.reset();
+    },
+    continueWithGoogle() {
+      const provider = new firebase.auth.GoogleAuthProvider();
+      const errors = [];
+
+      firebase
+        .auth()
+        .signInWithPopup(provider)
+        .then(res => {
+          const token = res.credential.accesToken,
+            user = res.user;
+          console.log(token);
+          console.log(user);
+        })
+        .catch(err => {
+          console.log(err);
+        });
     }
   }
 };

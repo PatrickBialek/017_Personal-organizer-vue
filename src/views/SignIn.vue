@@ -3,7 +3,11 @@
     <v-layout row wrap align-center class="justify-center">
       <v-card class="my-3" min-width="300">
         <v-row class="ma-4">
-          <v-btn class="red darken-2 white--text mb-4" width="100%">Continue with google</v-btn>
+          <v-btn
+            class="red darken-2 white--text mb-4"
+            width="100%"
+            @click="continueWithGoogle"
+          >Continue with google</v-btn>
         </v-row>
         <v-row class="mx-4 mt-4 justify-center align-center">
           <v-divider></v-divider>
@@ -77,7 +81,6 @@ export default {
         .auth()
         .signInWithEmailAndPassword(this.user.email, this.user.password)
         .then(user => {
-          console.log(user);
           this.loading = false;
         })
         .then(user => {
@@ -90,6 +93,30 @@ export default {
     },
     reset() {
       this.$refs.form.reset();
+    },
+    continueWithGoogle() {
+      const provider = new firebase.auth.GoogleAuthProvider(),
+        errors = [];
+
+      firebase
+        .auth()
+        .signInWithPopup(provider)
+        .then(res => {
+          this.createUserDatabase(res);
+        })
+        .catch(err => {
+          this.error = err.message;
+        });
+    },
+    createUserDatabase() {
+      const user = firebase.auth().currentUser,
+        name = user.displayName,
+        db = firebase.database().ref("users/" + userEmail),
+        userData = {
+          name: name
+        };
+
+      db.set(userData);
     }
   }
 };
