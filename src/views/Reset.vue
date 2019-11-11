@@ -12,13 +12,17 @@
             v-model="user.email"
             :rules="validationRules.email"
           ></v-text-field>
-          <v-btn class="primary" @click="resetPasswordHandler" :disabled="!valid">Send reset mail</v-btn>
+          <v-btn
+            class="primary"
+            @click="resetPasswordHandler"
+            :disabled="!valid"
+            :loading="loading"
+          >Send reset mail</v-btn>
         </v-form>
       </v-card>
     </v-layout>
   </v-container>
 </template>
-
 
 <script>
 export default {
@@ -28,6 +32,7 @@ export default {
       user: {
         email: ""
       },
+      loading: false,
       valid: false,
       validationRules: {
         email: [
@@ -40,6 +45,7 @@ export default {
   methods: {
     resetPasswordHandler() {
       this.reset();
+      this.loading = true;
     },
     reset() {
       this.$refs.form.reset();

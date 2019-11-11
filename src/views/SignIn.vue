@@ -22,7 +22,13 @@
             v-model="user.password"
             :rules="validationRules.password"
           ></v-text-field>
-          <v-btn class="primary" @click="signInHanlder" :disabled="!valid">Sign In</v-btn>
+          <v-btn
+            class="primary"
+            @click="signInHanlder"
+            :disabled="!valid"
+            :loading="loading"
+          >Sign In</v-btn>
+          <p class="error-message mb-0 mt-4 red--text" v-if="error">{{ error }}</p>
         </v-form>
         <v-row class="mx-4 mb-1">
           <router-link class="link" to="/sign-up">I don't have an account yet.</router-link>
@@ -36,6 +42,9 @@
 </template>
 
 <script>
+import db from "@/firebase/init";
+import firebase from "firebase";
+
 export default {
   name: "SignIn",
   data() {
@@ -44,6 +53,8 @@ export default {
         email: "",
         password: ""
       },
+      error: "",
+      loading: false,
       valid: false,
       validationRules: {
         email: [
@@ -61,7 +72,21 @@ export default {
   },
   methods: {
     signInHanlder() {
-      this.reset();
+      this.loading = true;
+      firebase
+        .auth()
+        .signInWithEmailAndPassword(this.user.email, this.user.password)
+        .then(user => {
+          console.log(user);
+          this.loading = false;
+        })
+        .then(user => {
+          this.reset();
+        })
+        .catch(err => {
+          this.loading = false;
+          this.error = err.message;
+        });
     },
     reset() {
       this.$refs.form.reset();
@@ -73,5 +98,8 @@ export default {
 <style scoped lang="scss">
 .link {
   text-decoration: none;
+}
+.error-message {
+  max-width: 250px;
 }
 </style>

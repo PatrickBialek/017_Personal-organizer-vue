@@ -31,11 +31,16 @@
             :rules="validationRules.passwordRepeated"
             required
           ></v-text-field>
-          <v-btn class="primary" @click="signInHandler" :disabled="!valid">Sign Up</v-btn>
+          <v-btn
+            class="primary"
+            @click="signInHandler"
+            :disabled="!valid"
+            :loading="loading"
+          >Sign Up</v-btn>
           <p class="error-message mb-0 mt-4 red--text" v-if="error">{{ error }}</p>
         </v-form>
         <v-row class="mx-4 mb-4">
-          <router-link class="link" to="/sign-in">I have and account.</router-link>
+          <router-link class="link" to="/sign-in">I have an account.</router-link>
         </v-row>
       </v-card>
     </v-layout>
@@ -90,13 +95,20 @@ export default {
   },
   methods: {
     signInHandler() {
+      this.loading = true;
       firebase
         .auth()
         .createUserWithEmailAndPassword(this.user.email, this.user.password)
+        .then(() => {
+          this.loading = false;
+          this.$refs.form.reset();
+          this.error = "";
+        })
         .catch(err => {
-          this.error = err;
+          this.error = err.message;
+          this.loading = false;
+          this.$refs.form.reset();
         });
-      this.reset();
     },
     reset() {
       this.$refs.form.reset();
