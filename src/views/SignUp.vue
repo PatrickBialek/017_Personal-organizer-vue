@@ -124,21 +124,28 @@ export default {
       this.$refs.form.reset();
     },
     continueWithGoogle() {
-      const provider = new firebase.auth.GoogleAuthProvider();
-      const errors = [];
+      const provider = new firebase.auth.GoogleAuthProvider(),
+        errors = [];
 
       firebase
         .auth()
         .signInWithPopup(provider)
         .then(res => {
-          const token = res.credential.accesToken,
-            user = res.user;
-          console.log(token);
-          console.log(user);
+          this.createUserDatabase();
         })
         .catch(err => {
-          console.log(err);
+          this.error = err.message;
         });
+    },
+    createUserDatabase() {
+      const user = firebase.auth().currentUser,
+        email = user.email,
+        name = user.displayName;
+
+      let ref = db.collection("users").doc(email);
+      ref.set({
+        name: name
+      });
     }
   }
 };
