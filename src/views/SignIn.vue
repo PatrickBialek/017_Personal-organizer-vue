@@ -102,7 +102,7 @@ export default {
         .auth()
         .signInWithPopup(provider)
         .then(res => {
-          this.createUserDatabase(res);
+          this.createUserDatabase();
         })
         .catch(err => {
           this.error = err.message;
@@ -110,13 +110,13 @@ export default {
     },
     createUserDatabase() {
       const user = firebase.auth().currentUser,
-        name = user.displayName,
-        db = firebase.database().ref("users/" + userEmail),
-        userData = {
-          name: name
-        };
+        email = user.email,
+        name = user.displayName;
 
-      db.set(userData);
+      let ref = db.collection("users").doc(email);
+      ref.set({
+        name: name
+      });
     }
   }
 };
