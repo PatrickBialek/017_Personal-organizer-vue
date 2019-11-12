@@ -2,13 +2,7 @@
   <v-container fill-height grid-list-md>
     <v-layout row wrap align-center class="justify-center">
       <v-card class="my-3" min-width="300">
-        <v-row class="ma-4">
-          <v-btn
-            class="red darken-2 white--text mb-4"
-            width="100%"
-            @click="continueWithGoogle"
-          >Continue with google</v-btn>
-        </v-row>
+        <continueWithGoogle />
         <v-row class="mx-4 mt-4 justify-center align-center">
           <v-divider></v-divider>
           <span class="mx-4">OR</span>
@@ -48,6 +42,7 @@
 <script>
 import db from "@/firebase/init";
 import firebase from "firebase";
+import continueWithGoogle from "@/components/Auth/continueWithGoogle.vue";
 
 export default {
   name: "SignIn",
@@ -74,6 +69,9 @@ export default {
       }
     };
   },
+  components: {
+    continueWithGoogle
+  },
   methods: {
     signInHanlder() {
       this.loading = true;
@@ -93,30 +91,6 @@ export default {
     },
     reset() {
       this.$refs.form.reset();
-    },
-    continueWithGoogle() {
-      const provider = new firebase.auth.GoogleAuthProvider(),
-        errors = [];
-
-      firebase
-        .auth()
-        .signInWithPopup(provider)
-        .then(res => {
-          this.createUserDatabase();
-        })
-        .catch(err => {
-          this.error = err.message;
-        });
-    },
-    createUserDatabase() {
-      const user = firebase.auth().currentUser,
-        email = user.email,
-        name = user.displayName;
-
-      let ref = db.collection("users").doc(email);
-      ref.set({
-        name: name
-      });
     }
   }
 };
