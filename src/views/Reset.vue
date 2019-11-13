@@ -14,17 +14,22 @@
           ></v-text-field>
           <v-btn
             class="primary"
-            @click="resetPasswordHandler"
+            @click="resetPassword"
             :disabled="!valid"
             :loading="loading"
           >Send reset mail</v-btn>
         </v-form>
+        <p class="error mt-4" v-if="error">{{ error }}</p>
+        <p class="success mt-4" v-if="success">{{ success }}</p>
       </v-card>
     </v-layout>
   </v-container>
 </template>
 
 <script>
+import db from "@/firebase/init";
+import firebase from "firebase";
+
 export default {
   name: "Reset",
   data() {
@@ -34,6 +39,8 @@ export default {
       },
       loading: false,
       valid: false,
+      error: "",
+      success: "",
       validationRules: {
         email: [
           v => !!v || "Email is required",
@@ -43,11 +50,21 @@ export default {
     };
   },
   methods: {
-    resetPasswordHandler() {
-      this.reset();
+    resetPassword() {
+      this.resetForm();
       this.loading = true;
+
+      firebase
+        .auth()
+        .sendPasswordResetEmail(this.user.email)
+        .then(() => {
+          this.success = "Reset email has been send";
+        })
+        .catch(err => {
+          this.error = err;
+        });
     },
-    reset() {
+    resetForm() {
       this.$refs.form.reset();
     }
   }
