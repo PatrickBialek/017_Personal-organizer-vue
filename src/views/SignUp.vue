@@ -102,6 +102,7 @@ export default {
         .auth()
         .createUserWithEmailAndPassword(this.user.email, this.user.password)
         .then(res => {
+          console.log(res.user);
           const ref = db.collection("users").doc(res.user.uid);
           ref.set({
             name: this.user.name
