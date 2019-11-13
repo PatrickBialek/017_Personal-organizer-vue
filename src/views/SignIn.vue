@@ -42,7 +42,7 @@
 <script>
 import db from "@/firebase/init";
 import firebase from "firebase";
-import continueWithGoogle from "@/components/Auth/continueWithGoogle.vue";
+import continueWithGoogle from "@/components/Auth/ContinueWithGoogle.vue";
 
 export default {
   name: "SignIn",
