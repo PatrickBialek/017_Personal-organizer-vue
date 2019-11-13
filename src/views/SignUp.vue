@@ -98,11 +98,11 @@ export default {
   methods: {
     signInHandler() {
       this.loading = true;
-      let ref = db.collection("users").doc(this.user.email);
       firebase
         .auth()
         .createUserWithEmailAndPassword(this.user.email, this.user.password)
         .then(res => {
+          const ref = db.collection("users").doc(res.user.uid);
           ref.set({
             name: this.user.name
           });
