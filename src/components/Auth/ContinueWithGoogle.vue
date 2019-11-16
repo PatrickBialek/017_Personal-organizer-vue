@@ -31,6 +31,7 @@ export default {
         .then(res => {
           this.createUserDatabase();
           this.loading = false;
+          this.$router.push("/");
         })
         .catch(err => {
           this.error = err.message;
