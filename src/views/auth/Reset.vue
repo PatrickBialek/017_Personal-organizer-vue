@@ -19,8 +19,8 @@
             :loading="loading"
           >Send reset mail</v-btn>
         </v-form>
-        <p class="error mt-4" v-if="error">{{ error }}</p>
-        <p class="success mt-4" v-if="success">{{ success }}</p>
+        <p class="error-message red--text mt-4 mx-4" v-if="error">{{ error }}.</p>
+        <p class="success-message green--text mt-4 mx-4" v-if="success">{{ success }}.</p>
       </v-card>
     </v-layout>
   </v-container>
@@ -51,16 +51,21 @@ export default {
   },
   methods: {
     resetPassword() {
-      this.resetForm();
       this.loading = true;
+
+      console.log(this.user.email);
 
       firebase
         .auth()
         .sendPasswordResetEmail(this.user.email)
         .then(() => {
           this.success = "Reset email has been send";
+          this.loading = false;
+          this.resetForm();
         })
         .catch(err => {
+          this.resetForm();
+          this.loading = false;
           this.error = err;
         });
     },
@@ -70,3 +75,10 @@ export default {
   }
 };
 </script>
+
+<style lang="scss" scoped>
+.error-message,
+.success-message {
+  max-width: 250px;
+}
+</style>
