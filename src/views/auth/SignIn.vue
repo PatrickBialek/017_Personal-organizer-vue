@@ -83,6 +83,7 @@ export default {
         })
         .then(user => {
           this.reset();
+          this.$router.push("/");
         })
         .catch(err => {
           this.loading = false;

@@ -112,6 +112,7 @@ export default {
           this.loading = false;
           this.$refs.form.reset();
           this.error = "";
+          this.$router.push("/");
         })
         .catch(err => {
           this.error = err.message;

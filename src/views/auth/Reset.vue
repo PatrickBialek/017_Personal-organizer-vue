@@ -19,8 +19,8 @@
             :loading="loading"
           >Send reset mail</v-btn>
         </v-form>
-        <p class="error-message red--text mt-4 mx-4" v-if="error">{{ error }}.</p>
-        <p class="success-message green--text mt-4 mx-4" v-if="success">{{ success }}.</p>
+        <p class="error-message red--text mx-4" v-if="error">{{ error }}.</p>
+        <p class="success-message green--text mx-4" v-if="success">{{ success }}.</p>
       </v-card>
     </v-layout>
   </v-container>
