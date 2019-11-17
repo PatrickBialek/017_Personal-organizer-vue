@@ -10,7 +10,8 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     user: {
-      isUserOnline: false
+      isUserOnline: false,
+      name: ""
     }
   },
   mutations,

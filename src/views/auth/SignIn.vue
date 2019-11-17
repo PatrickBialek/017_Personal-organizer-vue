@@ -83,6 +83,7 @@ export default {
         })
         .then(user => {
           this.reset();
+          this.$store.commit("updateIsUserOnline", true);
           this.$router.push("/");
         })
         .catch(err => {

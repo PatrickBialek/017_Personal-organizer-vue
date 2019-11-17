@@ -102,7 +102,6 @@ export default {
         .auth()
         .createUserWithEmailAndPassword(this.user.email, this.user.password)
         .then(res => {
-          console.log(res.user);
           const ref = db.collection("users").doc(res.user.uid);
           ref.set({
             name: this.user.name
@@ -112,6 +111,7 @@ export default {
           this.loading = false;
           this.$refs.form.reset();
           this.error = "";
+          this.$store.commit("updateIsUserOnline", true);
           this.$router.push("/");
         })
         .catch(err => {
