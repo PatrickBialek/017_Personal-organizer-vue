@@ -4,7 +4,7 @@
       <h1 class="grey--text text--lighten-1 title">Personal Organizer</h1>
     </v-toolbar-title>
     <v-spacer></v-spacer>
-    <signOut />
+    <signOut v-if="user"></signOut>
   </v-toolbar>
 </template>
 
@@ -15,6 +15,11 @@ export default {
   name: "Header",
   data() {
     return {};
+  },
+  computed: {
+    user() {
+      return this.$store.getters.getIsUserOnline;
+    }
   },
   components: {
     signOut

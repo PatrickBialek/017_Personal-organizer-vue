@@ -31,6 +31,7 @@ export default {
         .then(res => {
           this.createUserDatabase();
           this.loading = false;
+          this.$store.commit("updateIsUserOnline", true);
           this.$router.push("/");
         })
         .catch(err => {
