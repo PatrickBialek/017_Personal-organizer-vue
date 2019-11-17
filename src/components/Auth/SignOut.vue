@@ -19,6 +19,7 @@ export default {
         .signOut()
         .then(() => {
           this.$router.push("/sign-in");
+          this.$store.commit("updateIsUserOnline", false);
         })
         .catch(err => {
           console.log(err);
