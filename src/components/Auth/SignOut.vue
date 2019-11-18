@@ -1,6 +1,9 @@
 <template>
   <div>
-    <v-btn @click="signOut" class="grey--text" text small>Sign Out</v-btn>
+    <v-btn @click="signOut" class="grey--text" text small>
+      <span>Log out</span>
+      <v-icon>exit_to_app</v-icon>
+    </v-btn>
   </div>
 </template>
 

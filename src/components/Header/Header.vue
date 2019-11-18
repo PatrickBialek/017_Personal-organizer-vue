@@ -1,5 +1,11 @@
 <template>
   <v-toolbar max-height="60">
+    <v-navigation-drawer v-model="drawer" app dark floating persistent>
+      <p>Test</p>
+    </v-navigation-drawer>
+    <v-btn class="white" depressed v-if="user" @click="drawer = !drawer" background-color="white">
+      <v-icon>menu</v-icon>
+    </v-btn>
     <v-toolbar-title>
       <h1 class="grey--text text--lighten-1 title">Personal Organizer</h1>
     </v-toolbar-title>
@@ -14,7 +20,9 @@ import signOut from "@/components/Auth/SignOut.vue";
 export default {
   name: "Header",
   data() {
-    return {};
+    return {
+      drawer: false
+    };
   },
   computed: {
     user() {
