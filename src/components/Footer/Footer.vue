@@ -7,8 +7,7 @@
           class="white--text"
           target="_blank"
           href="https://github.com/PatrickBialek"
-          >Patryk Białek</a
-        >
+        >Patryk Białek</a>
       </p>
       <p class="text-center ma-0">
         {{ new Date().getFullYear() }} -
