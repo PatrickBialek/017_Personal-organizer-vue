@@ -3,3 +3,9 @@ export const updateIsUserOnline = ({
 }, payload) => {
 	commit("updateIsUserOnline", payload);
 };
+
+export const updateNavigationDrawer = ({
+	commit
+}, payload) => {
+	commit("updateNavigationDrawer", payload);
+}

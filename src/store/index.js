@@ -12,6 +12,9 @@ export default new Vuex.Store({
     user: {
       isUserOnline: false,
       name: ""
+    },
+    layout: {
+      navigationDrawer: false
     }
   },
   mutations,

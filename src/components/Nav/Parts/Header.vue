@@ -1,6 +1,6 @@
 <template>
   <v-toolbar max-height="60" app>
-    <v-btn class="white" depressed v-if="user" @click="drawer = !drawer" background-color="white">
+    <v-btn class="white" depressed v-if="user" @click="drawerHandler" background-color="white">
       <v-icon>menu</v-icon>
     </v-btn>
     <v-toolbar-title>
@@ -26,6 +26,11 @@ export default {
   },
   components: {
     signOut
+  },
+  methods: {
+    drawerHandler() {
+      this.$store.commit("updateNavigationDrawer", true);
+    }
   }
 };
 </script>

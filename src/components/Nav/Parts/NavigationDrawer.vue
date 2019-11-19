@@ -1,6 +1,6 @@
 <template>
   <nav>
-    <v-navigation-drawer app temporary v-model="drawer">
+    <v-navigation-drawer v-model="navigation" app temporary>
       <p>test</p>
     </v-navigation-drawer>
   </nav>
@@ -12,12 +12,22 @@ import signOut from "@/components/Auth/SignOut.vue";
 export default {
   name: "NavigationDrawer",
   data() {
-    return {
-      drawer: false
-    };
+    return {};
   },
   components: {
     signOut
+  },
+  computed: {
+    navigation: {
+      get() {
+        return this.$store.state.getNavigationDrawer;
+      },
+      set(state) {
+        if (state !== this.$store.state.getNavigationDrawer) {
+          this.$store.dispatch("updateNavigationDrawer");
+        }
+      }
+    }
   }
 };
 </script>
