@@ -20,7 +20,7 @@ export default {
   computed: {
     navigation: {
       get() {
-        return this.$store.state.getNavigationDrawer;
+        return this.$store.getters.getNavigationDrawer;
       },
       set(state) {
         if (state !== this.$store.state.getNavigationDrawer) {
