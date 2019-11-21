@@ -1,5 +1,5 @@
 <template>
-  <v-toolbar max-height="60" app>
+  <v-app-bar max-height="60" app>
     <v-btn class="white" depressed v-if="user" @click="drawerHandler" background-color="white">
       <v-icon>menu</v-icon>
     </v-btn>
@@ -8,7 +8,7 @@
     </v-toolbar-title>
     <v-spacer></v-spacer>
     <signOut v-if="user"></signOut>
-  </v-toolbar>
+  </v-app-bar>
 </template>
 
 <script>

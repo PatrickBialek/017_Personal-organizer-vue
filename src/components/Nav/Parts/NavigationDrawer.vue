@@ -1,10 +1,8 @@
 <template>
   <nav>
     <v-navigation-drawer v-model="navigation" app temporary>
-      <v-layout row class="pa-4">
-        <v-row>
-          <signOut />
-        </v-row>
+      <v-layout class="pa-4">
+        <signOut />
       </v-layout>
     </v-navigation-drawer>
   </nav>
