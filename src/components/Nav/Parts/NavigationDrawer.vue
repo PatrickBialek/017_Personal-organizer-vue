@@ -8,7 +8,7 @@
         <v-row class="fill-height">
           <v-list>
             <v-list-item-group>
-              <v-list-item v-for="(item, key) in items" :key="key">
+              <v-list-item v-for="(item, key) in items" :key="key" router :to="link.route">
                 <v-list-item-icon>
                   <v-icon v-text="item.icon"></v-icon>
                 </v-list-item-icon>
@@ -34,13 +34,17 @@ export default {
   data() {
     return {
       items: [
-        { icon: "dashboard", text: "Dashboard", route: "" },
-        { icon: "view_list", text: "Notes", route: "" },
-        { icon: "watch_later", text: "Time Tracker", route: "" },
-        { icon: "account_balance_wallet", text: "Budget", route: "" },
-        { icon: "wb_sunny", text: "Weather", route: "" },
-        { icon: "trending_up", text: "Exchange Rates", route: "" },
-        { icon: "watch_later", text: "Calendar", route: "" }
+        { icon: "dashboard", text: "Dashboard", route: "/" },
+        { icon: "view_list", text: "Notes", route: "/notes" },
+        { icon: "watch_later", text: "Time Tracker", route: "/time-tracker" },
+        { icon: "account_balance_wallet", text: "Budget", route: "/budget" },
+        { icon: "wb_sunny", text: "Weather", route: "/weather" },
+        {
+          icon: "trending_up",
+          text: "Exchange Rates",
+          route: "/exchange-rates"
+        },
+        { icon: "watch_later", text: "Calendar", route: "/calendar" }
       ]
     };
   },
