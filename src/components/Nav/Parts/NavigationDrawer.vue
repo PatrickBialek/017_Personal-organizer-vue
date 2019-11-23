@@ -8,7 +8,7 @@
         <v-row class="fill-height">
           <v-list>
             <v-list-item-group>
-              <v-list-item v-for="(item, key) in items" :key="key" router :to="link.route">
+              <v-list-item v-for="(item, key) in items" :key="key" :to="item.route">
                 <v-list-item-icon>
                   <v-icon v-text="item.icon"></v-icon>
                 </v-list-item-icon>
