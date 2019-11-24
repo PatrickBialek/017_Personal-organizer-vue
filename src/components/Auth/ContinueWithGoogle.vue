@@ -29,7 +29,7 @@ export default {
         .auth()
         .signInWithPopup(provider)
         .then(res => {
-          this.createUserDatabase();
+          this.createUserDatabase(res);
           this.loading = false;
           this.$store.commit("updateIsUserOnline", true);
           this.$router.push("/");
@@ -39,12 +39,12 @@ export default {
           this.loading = false;
         });
     },
-    createUserDatabase() {
+    createUserDatabase(res) {
       const user = firebase.auth().currentUser,
         email = user.email,
         name = user.displayName;
 
-      let ref = db.collection("users").doc(email);
+      const ref = db.collection("users").doc(res.user.uid);
       ref.set({
         name: name
       });

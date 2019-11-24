@@ -12,13 +12,18 @@
               </div>
               <v-spacer></v-spacer>
               <div class="caption grey--text">
-                <span>13.10.19</span>
+                <v-btn text icon>
+                  <v-icon>edit</v-icon>
+                </v-btn>
                 <v-btn text icon>
                   <v-icon>delete</v-icon>
                 </v-btn>
+                <span>13.10.19</span>
               </div>
             </v-row>
-            <v-row>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Repellendus accusantium in rerum, molestias sit tempora perferendis dolor et animi, officia quasi tenetur ea deserunt ut aut inventore laborum tempore. Fugiat. Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet architecto numquam labore perferendis corrupti iure ipsa ipsum fuga, minima quia odio, laudantium dicta quidem assumenda voluptatem in quam veniam molestiae.</v-row>
+            <v-row
+              class="px-3"
+            >Lorem ipsum dolor sit amet consectetur, adipisicing elit. Repellendus accusantium in rerum, molestias sit tempora perferendis dolor et animi, officia quasi tenetur ea deserunt ut aut inventore laborum tempore. Fugiat. Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet architecto numquam labore perferendis corrupti iure ipsa ipsum fuga, minima quia odio, laudantium dicta quidem assumenda voluptatem in quam veniam molestiae.</v-row>
           </v-layout>
         </v-card>
       </v-row>
