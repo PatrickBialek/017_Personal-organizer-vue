@@ -11,7 +11,8 @@ export default new Vuex.Store({
   state: {
     user: {
       isUserOnline: false,
-      name: ""
+      name: null,
+      userID: null
     },
     layout: {
       navigationDrawer: false

@@ -102,9 +102,13 @@ export default {
         .auth()
         .createUserWithEmailAndPassword(this.user.email, this.user.password)
         .then(res => {
-          const ref = db.collection("users").doc(res.user.uid);
+          const id = res.user.uid,
+            ref = db.collection("users").doc(id);
+
+          this.$store.commit("updateUserID", id);
           ref.set({
-            name: this.user.name
+            name: this.user.name,
+            id: id
           });
         })
         .then(() => {

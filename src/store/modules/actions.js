@@ -4,6 +4,12 @@ export const updateIsUserOnline = ({
 	commit("updateIsUserOnline", payload);
 };
 
+export const updateUserID = ({
+	commit
+}, payload) => {
+	commit("updateUserID", payload);
+}
+
 export const updateNavigationDrawer = ({
 	commit
 }, payload) => {

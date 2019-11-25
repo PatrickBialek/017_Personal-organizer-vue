@@ -42,11 +42,14 @@ export default {
     createUserDatabase(res) {
       const user = firebase.auth().currentUser,
         email = user.email,
+        id = res.user.uid,
         name = user.displayName;
 
-      const ref = db.collection("users").doc(res.user.uid);
+      const ref = db.collection("users").doc(id);
+      this.$store.commit("updateUserID", id);
       ref.set({
-        name: name
+        name: name,
+        id: id
       });
     }
   }
