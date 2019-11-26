@@ -4,16 +4,10 @@
       <v-row class="mb-5">
         <h2 class="mb-2 title">Add note</h2>
         <v-card class="pa-0" flat width="100%">
-          <v-form>
-            <v-textarea outlined :rules="validationRules.note"></v-textarea>
-            <p class="error-message mb-0 mt-4 red--text" v-if="error">{{ error }}</p>
-            <v-btn
-              class="primary"
-              @click="addNote"
-              :disabled="!valid"
-              :loading="loading"
-              flat
-            >Add new</v-btn>
+          <v-form v-model="valid">
+            <v-textarea v-model="userNotes" outlined :rules="validationRules.note"></v-textarea>
+            <p class="error-message mb-0 mt-4 red--text pa-0" v-if="error">{{ error }}</p>
+            <v-btn class="primary" @click="addNote" :disabled="!valid" :loading="loading">Add new</v-btn>
           </v-form>
         </v-card>
       </v-row>
