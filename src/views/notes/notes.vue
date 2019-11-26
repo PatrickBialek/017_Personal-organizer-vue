@@ -1,11 +1,11 @@
 <template>
   <v-container class="notes">
     <v-layout column>
-      <v-row class="mb-5">
+      <v-row class="mb-6">
         <h2 class="mb-2 title">Add note</h2>
         <v-card class="pa-0" flat width="100%">
           <v-form v-model="valid">
-            <v-textarea v-model="userNotes" outlined :rules="validationRules.note"></v-textarea>
+            <v-textarea v-model="note" outlined :rules="validationRules.note"></v-textarea>
             <p class="error-message mb-0 mt-4 red--text pa-0" v-if="error">{{ error }}</p>
             <v-btn class="primary" @click="addNote" :disabled="!valid" :loading="loading">Add new</v-btn>
           </v-form>
@@ -48,8 +48,8 @@ export default {
   name: "Notes",
   data() {
     return {
-      userNotes: null,
-      error: "",
+      note: null,
+      error: null,
       loading: false,
       valid: false,
       validationRules: {
@@ -72,7 +72,21 @@ export default {
     }*/
   },
   methods: {
-    addNote() {}
+    addNote() {
+      this.loading = true;
+      const userID = this.$store.getters.getUserID;
+
+      db.collection("notes")
+        .add({
+          userID: userID,
+          note: this.note,
+          date: Date.now()
+        })
+        .then(() => {
+          this.loading = false;
+          this.note = null;
+        });
+    }
   }
 };
 </script>
