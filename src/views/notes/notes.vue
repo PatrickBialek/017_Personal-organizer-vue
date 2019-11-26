@@ -1,10 +1,25 @@
 <template>
   <v-container class="notes">
     <v-layout column>
-      <v-row class="pa-3">Create notes</v-row>
+      <v-row class="mb-5">
+        <h2 class="mb-2 title">Add note</h2>
+        <v-card class="pa-0" flat width="100%">
+          <v-form>
+            <v-textarea outlined :rules="validationRules.note"></v-textarea>
+            <p class="error-message mb-0 mt-4 red--text" v-if="error">{{ error }}</p>
+            <v-btn
+              class="primary"
+              @click="addNote"
+              :disabled="!valid"
+              :loading="loading"
+              flat
+            >Add new</v-btn>
+          </v-form>
+        </v-card>
+      </v-row>
       <v-row>
-        <h2 class="mb-3 title">Your notes:</h2>
-        <v-card v-if="userNotes" class="pa-3" flat width="100%" outlined>
+        <h2 class="mb-2 title">Your notes:</h2>
+        <v-card class="pa-3" flat width="100%" outlined>
           <v-layout column wrap>
             <v-row class="mx-0 mb-1">
               <div class="notes__title">
@@ -38,10 +53,19 @@ import firebase from "firebase";
 export default {
   name: "Notes",
   data() {
-    return {};
+    return {
+      userNotes: null,
+      error: "",
+      loading: false,
+      valid: false,
+      validationRules: {
+        note: [v => !!v || "You cannot add a empty note"]
+      }
+    };
   },
+
   computed: {
-    userNotes() {
+    /*userNotes() {
       const userID = this.$store.getters.getUserID;
 
       db.collection("notes")
@@ -51,7 +75,10 @@ export default {
             console.log(change);
           });
         });
-    }
+    }*/
+  },
+  methods: {
+    addNote() {}
   }
 };
 </script>
