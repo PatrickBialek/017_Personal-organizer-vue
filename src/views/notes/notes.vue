@@ -57,6 +57,7 @@ export default {
   data() {
     return {
       note: null,
+      title: null,
       error: null,
       loading: false,
       valid: false,
@@ -84,7 +85,7 @@ export default {
     addNote() {
       this.loading = true;
       const userID = this.$store.getters.getUserID;
-      const date = format(Date.now(), "Do MM YYYY");
+      const date = format(new Date(), "d MMM YYY");
 
       db.collection("notes")
         .add({
