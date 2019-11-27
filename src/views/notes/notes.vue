@@ -50,6 +50,7 @@
 <script>
 import db from "@/firebase/init";
 import firebase from "firebase";
+import format from "date-fns/format";
 
 export default {
   name: "Notes",
@@ -83,13 +84,14 @@ export default {
     addNote() {
       this.loading = true;
       const userID = this.$store.getters.getUserID;
+      const date = format(Date.now(), "Do MM YYYY");
 
       db.collection("notes")
         .add({
           userID: userID,
           title: this.title,
           note: this.note,
-          date: Date.now()
+          date: date
         })
         .then(() => {
           this.loading = false;
