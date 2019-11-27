@@ -5,7 +5,14 @@
         <h2 class="mb-2 title">Add note</h2>
         <v-card class="pa-0" flat width="100%">
           <v-form v-model="valid">
-            <v-textarea v-model="note" outlined :rules="validationRules.note"></v-textarea>
+            <v-text-field
+              class="mb-0"
+              label="Title:"
+              v-model="title"
+              :rules="validationRules.title"
+              outlined
+            ></v-text-field>
+            <v-textarea v-model="note" :rules="validationRules.note" outlined></v-textarea>
             <p class="error-message mb-0 mt-4 red--text pa-0" v-if="error">{{ error }}</p>
             <v-btn class="primary" @click="addNote" :disabled="!valid" :loading="loading">Add new</v-btn>
           </v-form>
@@ -53,6 +60,7 @@ export default {
       loading: false,
       valid: false,
       validationRules: {
+        title: [v => !!v || "You have to add a title"],
         note: [v => !!v || "You cannot add a empty note"]
       }
     };
@@ -79,12 +87,17 @@ export default {
       db.collection("notes")
         .add({
           userID: userID,
+          title: this.title,
           note: this.note,
           date: Date.now()
         })
         .then(() => {
           this.loading = false;
+          this.title = null;
           this.note = null;
+        })
+        .error(err => {
+          this.error = err;
         });
     }
   }
