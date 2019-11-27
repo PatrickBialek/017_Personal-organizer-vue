@@ -56,8 +56,11 @@ export default {
   name: "Notes",
   data() {
     return {
-      note: null,
-      title: null,
+      newNote: {
+        title: null,
+        note: null
+      },
+      notes: [],
       error: null,
       loading: false,
       valid: false,
@@ -67,19 +70,20 @@ export default {
       }
     };
   },
+  created() {
+    const userID = this.$store.getters.getUserID;
 
-  computed: {
-    /*userNotes() {
-      const userID = this.$store.getters.getUserID;
-
-      db.collection("notes")
-        .where("userID", "==", userID)
-        .onSnapshot(snapshot => {
-          snapshot.docChanges.forEach(change => {
-            console.log(change);
-          });
+    db.collection("notes")
+      .where("userID" === userID)
+      .onSnapshot(snapshot => {
+        snapshot.docChanges().forEach(change => {
+          if (change.type == "added") {
+            this.notes.unshift({
+              // to fill
+            });
+          }
         });
-    }*/
+      });
   },
   methods: {
     addNote() {
@@ -90,14 +94,14 @@ export default {
       db.collection("notes")
         .add({
           userID: userID,
-          title: this.title,
-          note: this.note,
+          title: this.newNote.title,
+          note: this.newNote.note,
           date: date
         })
         .then(() => {
           this.loading = false;
-          this.title = null;
-          this.note = null;
+          this.newNote.title = null;
+          this.newNote.note = null;
         })
         .error(err => {
           this.error = err;
