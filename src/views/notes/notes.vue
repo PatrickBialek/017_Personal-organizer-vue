@@ -8,11 +8,11 @@
             <v-text-field
               class="mb-0"
               label="Title:"
-              v-model="title"
+              v-model="newNote.title"
               :rules="validationRules.title"
               outlined
             ></v-text-field>
-            <v-textarea v-model="note" :rules="validationRules.note" outlined></v-textarea>
+            <v-textarea v-model="newNote.note" :rules="validationRules.note" outlined></v-textarea>
             <p class="error-message mb-0 mt-4 red--text pa-0" v-if="error">{{ error }}</p>
             <v-btn class="primary" @click="addNote" :disabled="!valid" :loading="loading">Add new</v-btn>
           </v-form>
@@ -58,7 +58,9 @@ export default {
     return {
       newNote: {
         title: null,
-        note: null
+        note: null,
+        userID: null,
+        date: null
       },
       notes: [],
       error: null,
@@ -74,12 +76,13 @@ export default {
     const userID = this.$store.getters.getUserID;
 
     db.collection("notes")
-      .where("userID", "===", userID)
+      .where("userID", "==", userID)
       .onSnapshot(snapshot => {
         snapshot.docChanges().forEach(change => {
           if (change.type == "added") {
             this.notes.unshift({
-              // to fill
+              title: this.newNote.title,
+              note: this.newNote.note
             });
           }
         });
@@ -88,15 +91,15 @@ export default {
   methods: {
     addNote() {
       this.loading = true;
-      const userID = this.$store.getters.getUserID;
-      const date = format(new Date(), "d MMM YYY");
+      this.userID = this.$store.getters.getUserID;
+      this.date = format(new Date(), "d MMM YYY");
 
       db.collection("notes")
         .add({
-          userID: userID,
+          userID: this.userID,
           title: this.newNote.title,
           note: this.newNote.note,
-          date: date
+          date: this.date
         })
         .then(() => {
           this.loading = false;
