@@ -74,7 +74,7 @@ export default {
     const userID = this.$store.getters.getUserID;
 
     db.collection("notes")
-      .where("userID" === userID)
+      .where("userID", "===", userID)
       .onSnapshot(snapshot => {
         snapshot.docChanges().forEach(change => {
           if (change.type == "added") {
