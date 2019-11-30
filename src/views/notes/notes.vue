@@ -82,7 +82,9 @@ export default {
           if (change.type == "added") {
             this.notes.unshift({
               title: this.newNote.title,
-              note: this.newNote.note
+              note: this.newNote.note,
+              userID: this.newNote.userID,
+              date: this.userID.date
             });
           }
         });
@@ -91,15 +93,15 @@ export default {
   methods: {
     addNote() {
       this.loading = true;
-      this.userID = this.$store.getters.getUserID;
+      this.newNote.userID = this.$store.getters.getUserID;
       this.date = format(new Date(), "d MMM YYY");
 
       db.collection("notes")
         .add({
-          userID: this.userID,
+          userID: this.newNote.userID,
           title: this.newNote.title,
           note: this.newNote.note,
-          date: this.date
+          date: this.newNote.date
         })
         .then(() => {
           this.loading = false;
