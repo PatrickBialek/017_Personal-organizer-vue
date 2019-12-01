@@ -86,10 +86,10 @@ export default {
         snapshot.docChanges().forEach(change => {
           if (change.type == "added") {
             this.notes.unshift({
-              title: this.newNote.title,
-              note: this.newNote.note,
-              userID: this.newNote.userID,
-              date: this.newNote.date
+              title: change.doc.data().title,
+              note: change.doc.data().note,
+              userID: change.doc.data().userID,
+              date: change.doc.data().date
             });
           }
         });
