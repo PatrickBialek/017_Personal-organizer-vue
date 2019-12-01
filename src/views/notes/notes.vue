@@ -20,11 +20,18 @@
       </v-row>
       <v-row>
         <h2 class="mb-2 title">Your notes:</h2>
-        <v-card class="pa-3" flat width="100%" outlined>
+        <v-card
+          v-for="(note, key) in notes"
+          :key="key"
+          class="pa-3 mb-4"
+          flat
+          width="100%"
+          outlined
+        >
           <v-layout column wrap>
             <v-row class="mx-0 mb-1">
               <div class="notes__title">
-                <h3 class="title">Note title</h3>
+                <h3 class="title">{{ note.title }}</h3>
               </div>
               <v-spacer></v-spacer>
               <div class="caption grey--text">
@@ -34,12 +41,10 @@
                 <v-btn text icon>
                   <v-icon>delete</v-icon>
                 </v-btn>
-                <span>13.10.19</span>
+                <span>{{ note.date }}</span>
               </div>
             </v-row>
-            <v-row
-              class="px-3"
-            >Lorem ipsum dolor sit amet consectetur, adipisicing elit. Repellendus accusantium in rerum, molestias sit tempora perferendis dolor et animi, officia quasi tenetur ea deserunt ut aut inventore laborum tempore. Fugiat. Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet architecto numquam labore perferendis corrupti iure ipsa ipsum fuga, minima quia odio, laudantium dicta quidem assumenda voluptatem in quam veniam molestiae.</v-row>
+            <v-row class="px-3">{{ note.note }}</v-row>
           </v-layout>
         </v-card>
       </v-row>
@@ -84,7 +89,7 @@ export default {
               title: this.newNote.title,
               note: this.newNote.note,
               userID: this.newNote.userID,
-              date: this.userID.date
+              date: this.newNote.date
             });
           }
         });
@@ -94,7 +99,7 @@ export default {
     addNote() {
       this.loading = true;
       this.newNote.userID = this.$store.getters.getUserID;
-      this.date = format(new Date(), "d MMM YYY");
+      this.newNote.date = format(new Date(), "d MMM YYY");
 
       db.collection("notes")
         .add({
@@ -108,7 +113,7 @@ export default {
           this.newNote.title = null;
           this.newNote.note = null;
         })
-        .error(err => {
+        .catch(err => {
           this.error = err;
         });
     }
