@@ -38,7 +38,7 @@
                 <v-btn text icon>
                   <v-icon>edit</v-icon>
                 </v-btn>
-                <v-btn text icon>
+                <v-btn @click="deleteNote" text icon>
                   <v-icon>delete</v-icon>
                 </v-btn>
                 <span>{{ note.date }}</span>
