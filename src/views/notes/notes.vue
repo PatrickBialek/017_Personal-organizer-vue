@@ -23,6 +23,7 @@
         <v-card
           v-for="(note, key) in notes"
           :key="key"
+          :data-id="note.noteID"
           class="pa-3 mb-4"
           flat
           width="100%"
@@ -89,7 +90,8 @@ export default {
               title: change.doc.data().title,
               note: change.doc.data().note,
               userID: change.doc.data().userID,
-              date: change.doc.data().date
+              date: change.doc.data().date,
+              noteID: change.doc.id
             });
           }
         });
@@ -116,6 +118,14 @@ export default {
         .catch(err => {
           this.error = err;
         });
+    },
+    deleteNote(e) {
+      const noteContainer = e.target.closest(".v-card");
+      const id = noteContainer.dataset.id;
+
+      db.collection("notes")
+        .doc(id)
+        .delete();
     }
   }
 };
