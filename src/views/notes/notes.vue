@@ -85,7 +85,7 @@ export default {
       .where("userID", "==", userID)
       .onSnapshot(snapshot => {
         snapshot.docChanges().forEach(change => {
-          if (change.type == "added") {
+          if (change.type === "added") {
             this.notes.unshift({
               title: change.doc.data().title,
               note: change.doc.data().note,
@@ -126,6 +126,14 @@ export default {
       db.collection("notes")
         .doc(id)
         .delete();
+
+      this.updateNotesAfterRemoveNote(id);
+    },
+    updateNotesAfterRemoveNote(id) {
+      const note = this.notes.find(note => note.noteID === id);
+      const index = this.notes.indexOf(note);
+
+      this.notes.splice(index, 1);
     }
   }
 };
