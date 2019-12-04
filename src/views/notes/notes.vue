@@ -4,7 +4,7 @@
       <v-row class="mb-6">
         <h2 class="mb-2 title">Add note</h2>
         <v-card class="pa-0" flat width="100%">
-          <v-form v-model="valid">
+          <v-form v-model="valid" ref="form">
             <v-text-field
               class="mb-0"
               label="Title:"
@@ -13,7 +13,7 @@
               outlined
             ></v-text-field>
             <v-textarea v-model="newNote.note" :rules="validationRules.note" outlined></v-textarea>
-            <p class="error-message mb-0 mt-4 red--text pa-0" v-if="error">{{ error }}</p>
+            <p class="error-message mt-0 mb-4 red--text pa-0" v-if="error">{{ error }}</p>
             <v-btn class="primary" @click="addNote" :disabled="!valid" :loading="loading">Add new</v-btn>
           </v-form>
         </v-card>
@@ -112,8 +112,7 @@ export default {
         })
         .then(() => {
           this.loading = false;
-          this.newNote.title = null;
-          this.newNote.note = null;
+          this.$refs.form.reset();
         })
         .catch(err => {
           this.error = err;
