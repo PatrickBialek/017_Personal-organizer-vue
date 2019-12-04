@@ -121,12 +121,15 @@ export default {
     deleteNote(e) {
       const noteContainer = e.target.closest(".v-card");
       const id = noteContainer.dataset.id;
+      const r = confirm("Are you sure? Note will be removed.");
 
-      db.collection("notes")
-        .doc(id)
-        .delete();
+      if (r === true) {
+        db.collection("notes")
+          .doc(id)
+          .delete();
 
-      this.updateNotesAfterRemoveNote(id);
+        this.updateNotesAfterRemoveNote(id);
+      }
     },
     updateNotesAfterRemoveNote(id) {
       const note = this.notes.find(note => note.noteID === id);
