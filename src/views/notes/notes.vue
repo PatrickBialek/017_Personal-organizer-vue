@@ -18,7 +18,7 @@
           </v-form>
         </v-card>
       </v-row>
-      <v-row>
+      <v-row v-if="notes.lenght > 0">
         <h2 class="mb-2 title">Your notes:</h2>
         <v-card
           v-for="(note, key) in notes"
@@ -49,6 +49,14 @@
           </v-layout>
         </v-card>
       </v-row>
+      <v-container class="ma-0 pa-0" v-else>
+        <v-row>
+          <h2 class="mb-2">You don't have any notes yet.</h2>
+        </v-row>
+        <v-row>
+          <p>It's very simple, don't worry! You just have to fill title and content of you note and press button :)</p>
+        </v-row>
+      </v-container>
     </v-layout>
   </v-container>
 </template>
