@@ -77,8 +77,8 @@ export default {
         date: null
       },
       notes: [],
-      hasNotes: false,
       error: null,
+      hasNotes: false,
       loading: false,
       valid: false,
       validationRules: {
@@ -102,6 +102,7 @@ export default {
               date: change.doc.data().date,
               noteID: change.doc.id
             });
+
             if (this.hasNotes === false && this.notes.length > 0) {
               this.hasNotes = true;
             }
@@ -138,13 +139,10 @@ export default {
       if (r === true) {
         db.collection("notes")
           .doc(id)
-          .delete();
-
-        if (this.hasNotes === true && this.notes.length > 0) {
-          this.hasNotes = false;
-        }
-
-        this.updateNotesAfterRemoveNote(id);
+          .delete()
+          .then(() => {
+            this.updateNotesAfterRemoveNote(id);
+          });
       }
     },
     updateNotesAfterRemoveNote(id) {
@@ -152,10 +150,11 @@ export default {
       const index = this.notes.indexOf(note);
 
       this.notes.splice(index, 1);
+
+      if (this.notes.length == 0) {
+        this.hasNotes = false;
+      }
     }
   }
 };
 </script>
-
-<style scoped lang="scss">
-</style>
