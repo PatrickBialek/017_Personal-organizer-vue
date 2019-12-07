@@ -2,7 +2,8 @@
   <v-layout column wrap>
     <v-row class="mx-0 mb-1">
       <div class="notes__title">
-        <h3 class="title">{{ note.title }}</h3>
+        <h3 v-if="!editMode" class="title">{{ note.title }}</h3>
+        <v-text-field v-else class="mb-0" label="Title:" v-model="note.title" outlined></v-text-field>
       </div>
       <v-spacer></v-spacer>
       <div class="caption grey--text">
@@ -15,7 +16,9 @@
         <span>{{ note.date }}</span>
       </div>
     </v-row>
-    <v-row class="px-3">{{ note.note }}</v-row>
+    <v-row class="px-3" v-if="!editMode">{{ note.note }}</v-row>
+    <v-textarea v-else v-model="note.note" outlined></v-textarea>
+    <v-btn v-if="editMode" class="primary" @click="saveChanges">Save Changes</v-btn>
   </v-layout>
 </template>
 
@@ -26,11 +29,15 @@ import firebase from "firebase";
 export default {
   name: "SingleNote",
   data() {
-    return {};
+    return {
+      editMode: false,
+      noteData: this.note
+    };
   },
   props: {
     note: Object
   },
+  created() {},
   methods: {
     deleteNote(e) {
       const noteContainer = e.target.closest(".v-card");
@@ -47,7 +54,7 @@ export default {
       }
     },
     editNote(e) {
-      console.log(e);
+      this.editMode = !this.editMode;
     }
   }
 };
