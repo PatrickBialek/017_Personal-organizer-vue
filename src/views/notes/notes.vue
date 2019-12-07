@@ -18,7 +18,7 @@
           </v-form>
         </v-card>
       </v-row>
-      <v-row v-if="notes.lenght > 0">
+      <v-row v-if="hasNotes">
         <h2 class="mb-2 title">Your notes:</h2>
         <v-card
           v-for="(note, key) in notes"
@@ -77,6 +77,7 @@ export default {
         date: null
       },
       notes: [],
+      hasNotes: false,
       error: null,
       loading: false,
       valid: false,
@@ -101,6 +102,9 @@ export default {
               date: change.doc.data().date,
               noteID: change.doc.id
             });
+            if (this.hasNotes === false && this.notes.length > 0) {
+              this.hasNotes = true;
+            }
           }
         });
       });
@@ -135,6 +139,10 @@ export default {
         db.collection("notes")
           .doc(id)
           .delete();
+
+        if (this.hasNotes === true && this.notes.length > 0) {
+          this.hasNotes = false;
+        }
 
         this.updateNotesAfterRemoveNote(id);
       }
