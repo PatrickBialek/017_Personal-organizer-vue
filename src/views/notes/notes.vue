@@ -29,33 +29,11 @@
           width="100%"
           outlined
         >
-          <v-layout column wrap>
-            <v-row class="mx-0 mb-1">
-              <div class="notes__title">
-                <h3 class="title">{{ note.title }}</h3>
-              </div>
-              <v-spacer></v-spacer>
-              <div class="caption grey--text">
-                <v-btn text icon>
-                  <v-icon>edit</v-icon>
-                </v-btn>
-                <v-btn @click="deleteNote" text icon>
-                  <v-icon>delete</v-icon>
-                </v-btn>
-                <span>{{ note.date }}</span>
-              </div>
-            </v-row>
-            <v-row class="px-3">{{ note.note }}</v-row>
-          </v-layout>
+          <SingleNote :note="note" @updateNotesAfterRemoveNote="updateNotesAfterRemoveNote" />
         </v-card>
       </v-row>
       <v-container class="ma-0 pa-0" v-else>
-        <v-row>
-          <h2 class="mb-2">You don't have any notes yet.</h2>
-        </v-row>
-        <v-row>
-          <p>It's very simple, don't worry! You just have to fill title and content of you note and press button :)</p>
-        </v-row>
+        <NotNotesYet />
       </v-container>
     </v-layout>
   </v-container>
@@ -65,6 +43,8 @@
 import db from "@/firebase/init";
 import firebase from "firebase";
 import format from "date-fns/format";
+import SingleNote from "@/components/Notes/SingleNote.vue";
+import NotNotesYet from "@/components/Notes/NotNotesYet.vue";
 
 export default {
   name: "Notes",
@@ -86,6 +66,10 @@ export default {
         note: [v => !!v || "You cannot add a empty note"]
       }
     };
+  },
+  components: {
+    SingleNote,
+    NotNotesYet
   },
   created() {
     const userID = this.$store.getters.getUserID;
@@ -131,24 +115,9 @@ export default {
           this.error = err;
         });
     },
-    deleteNote(e) {
-      const noteContainer = e.target.closest(".v-card");
-      const id = noteContainer.dataset.id;
-      const r = confirm("Are you sure? Note will be removed.");
-
-      if (r === true) {
-        db.collection("notes")
-          .doc(id)
-          .delete()
-          .then(() => {
-            this.updateNotesAfterRemoveNote(id);
-          });
-      }
-    },
     updateNotesAfterRemoveNote(id) {
       const note = this.notes.find(note => note.noteID === id);
       const index = this.notes.indexOf(note);
-
       this.notes.splice(index, 1);
 
       if (this.notes.length == 0) {
