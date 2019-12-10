@@ -55,7 +55,8 @@ export default {
     },
     editNote(e) {
       this.editMode = !this.editMode;
-    }
+    },
+    saveChanges() {}
   }
 };
 </script>
