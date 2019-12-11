@@ -37,7 +37,6 @@ export default {
   props: {
     note: Object
   },
-  created() {},
   methods: {
     deleteNote(e) {
       const noteContainer = e.target.closest(".v-card");
@@ -56,7 +55,11 @@ export default {
     editNote(e) {
       this.editMode = !this.editMode;
     },
-    saveChanges() {}
+    saveChanges() {
+      console.log(JSON.parse(this.note.id));
+      this.$emit("updateAfterEditNote", this.note);
+      this.editMode = !this.editMode;
+    }
   }
 };
 </script>

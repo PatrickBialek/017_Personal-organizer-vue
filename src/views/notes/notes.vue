@@ -29,7 +29,11 @@
           width="100%"
           outlined
         >
-          <SingleNote :note="note" @updateNotesAfterRemoveNote="updateNotesAfterRemoveNote" />
+          <SingleNote
+            :note="note"
+            @updateNotesAfterRemoveNote="updateNotesAfterRemoveNote"
+            @updateAfterEditNote="updateAfterEditNote"
+          />
         </v-card>
       </v-row>
       <v-container class="ma-0 pa-0" v-else>
@@ -55,6 +59,10 @@ export default {
         note: null,
         userID: null,
         date: null
+      },
+      editedNote: {
+        title: null,
+        note: null
       },
       notes: [],
       error: null,
@@ -123,6 +131,9 @@ export default {
       if (this.notes.length == 0) {
         this.hasNotes = false;
       }
+    },
+    updateAfterEditNote(note) {
+      console.log(note);
     }
   }
 };
