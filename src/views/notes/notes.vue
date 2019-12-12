@@ -60,10 +60,7 @@ export default {
         userID: null,
         date: null
       },
-      editedNote: {
-        title: null,
-        note: null
-      },
+      editedNote: null,
       notes: [],
       error: null,
       hasNotes: false,
@@ -132,8 +129,16 @@ export default {
         this.hasNotes = false;
       }
     },
-    updateAfterEditNote(note) {
-      console.log(note);
+    updateAfterEditNote(id) {
+      const note = this.notes.find(note => note.noteID === id);
+      this.editedNote = note;
+
+      db.collection("notes")
+        .doc(id)
+        .update({
+          title: this.editedNote.title,
+          note: this.editedNote.note
+        });
     }
   }
 };

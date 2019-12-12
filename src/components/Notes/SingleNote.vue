@@ -55,9 +55,11 @@ export default {
     editNote(e) {
       this.editMode = !this.editMode;
     },
-    saveChanges() {
-      console.log(JSON.parse(this.note.id));
-      this.$emit("updateAfterEditNote", this.note);
+    saveChanges(e) {
+      const noteContainer = e.target.closest(".v-card");
+      const id = noteContainer.dataset.id;
+
+      this.$emit("updateAfterEditNote", id);
       this.editMode = !this.editMode;
     }
   }
