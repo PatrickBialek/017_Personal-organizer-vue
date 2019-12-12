@@ -52,7 +52,7 @@ const router = new Router({
       },
     },
     {
-      path: "/tracker",
+      path: "/time-tracker",
       name: "Tracker",
       component: Tracker,
       meta: {
