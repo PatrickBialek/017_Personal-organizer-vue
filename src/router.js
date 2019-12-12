@@ -9,6 +9,7 @@ import SignUp from "./views/auth/SignUp.vue";
 import Reset from "./views/auth/Reset.vue";
 import Error404 from "./views/errors/Error404.vue";
 import Notes from "./views/notes/notes.vue";
+import Tracker from "./views/tracker/tracker.vue";
 
 Vue.use(Router);
 
@@ -46,6 +47,14 @@ const router = new Router({
       path: "/notes",
       name: "Notes",
       component: Notes,
+      meta: {
+        requiresAuth: true
+      },
+    },
+    {
+      path: "/tracker",
+      name: "Tracker",
+      component: Tracker,
       meta: {
         requiresAuth: true
       }
