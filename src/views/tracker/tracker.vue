@@ -19,7 +19,12 @@
         </v-card>
       </v-row>
     </v-layout>
-    <CurrentTrackers />
+    <v-layout column wrap v-if="hasCurrentTrackers">
+      <v-row>
+        <h2 class="title mb-3">Your current trackers:</h2>
+      </v-row>
+      <CurrentTrackers />
+    </v-layout>
   </v-container>
 </template>
 
@@ -30,6 +35,7 @@ export default {
   name: "Tracker",
   data() {
     return {
+      hasCurrentTrackers: true,
       valid: false
     };
   },
